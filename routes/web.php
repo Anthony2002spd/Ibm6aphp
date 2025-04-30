@@ -27,7 +27,7 @@ switch ($route) {
         break;
     case 'sexo/eliminar':
         if (isset($_GET['idsexo'])) {
-            $controller->eliminar($_GET['idsexo]);
+            $controller->eliminar($_GET['idsexo']);
         } else {
             echo "Error: Falta el ID para editar.";
         }
