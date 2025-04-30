@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/config/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/EstadoCivil.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Estadocivil.php';
 
 class EstadoCivilController {
     private $estadoCivil;
