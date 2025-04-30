@@ -63,7 +63,7 @@ public function read() {
             $query = "UPDATE " . $this->table_name . " SET nombre = :nombre WHERE idsexo = :idsexo";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":nombre", $this->nombre, PDO::PARAM_STR);
-            $stmt->bindParam(":idsexo", $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(":idsexo", $this->idsexo, PDO::PARAM_INT);
 
             return $stmt->execute();
         } catch (PDOException $e) {
