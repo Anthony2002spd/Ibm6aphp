@@ -8,8 +8,8 @@
 <body>
 
 <h1>Editar el Sexo</h1>
-<form action="/sexo/public/sexo/delete" method="POST">
-    <input type="hidden" name="idsexo" value="<?php echo htmlspecialchars($sexo['idsexo']); ?>">
+<form action="/Ibm6aphp/public/sexo/delete" method="POST">
+    <input type="hidden" name="idsexo"  id="idsexo" value="<?php echo htmlspecialchars($sexo['idsexo']); ?>">
     
     <label for="nombre">Nombre:</label>
     <input type="text" name="nombre" id="nombre" value="<?php echo htmlspecialchars($sexo['nombre']); ?>" required>
