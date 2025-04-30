@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar los Sexos</title>
-    <link rel="stylesheet" href="/eysphp/public/css/style.css">
+    <link rel="stylesheet" href="/Ibm6aphp/public/css/style.css">
 </head>
 <body>
 
 <div class="container">
     <h1>Listar  Sexos</h1>
-    <a href="/eysphp/app/views/sexo/create.php"><button>Agregar</button></a>
+    <a href="/Ibm6aphp/app/views/sexo/create.php"><button>Agregar</button></a>
 
     <table>
         <thead>
@@ -24,13 +24,13 @@
             <?php if (!empty($sexos) && is_array($sexos)): ?>
                 <?php foreach ($sexos as $sexo): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($sexo['id']); ?></td>
+                        <td><?php echo htmlspecialchars($sexo['idsexo']); ?></td>
                         <td><?php echo htmlspecialchars($sexo['nombre']); ?></td>
                         <td>
-    <a href="/eysphp/public/sexo/edit?id=<?php echo htmlspecialchars($sexo['id']); ?>">
+    <a href="/Ibm6aphp/public/sexo/edit?idsexo=<?php echo htmlspecialchars($sexo['idsexo']); ?>">
         <button>Editar</button>
     </a>
-    <a href="/eysphp/public/sexo/eliminar?id=<?php echo htmlspecialchars($sexo['id']); ?>" 
+    <a href="/Ibm6aphp/public/sexo/eliminar?idsexo=<?php echo htmlspecialchars($sexo['idsexo']); ?>" 
        onclick="return confirm('¿Estás seguro de eliminar este registro?');">
         <button>Eliminar</button>
     </a>
@@ -46,6 +46,6 @@
     </table>
 </div>
 
-<script src="/eysphp/public/js/script.js"></script>
+<script src="/Ibm6aphp/public/js/script.js"></script>
 </body>
 </html>
