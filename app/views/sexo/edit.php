@@ -9,7 +9,7 @@
 
 <h1>Editar </h1>
 <form action="/Ibm6aphp/public/sexo/update" method="POST">
-    <input type="hidden" name="idsexo" value="<?php echo htmlspecialchars($sexo['idsexo']); ?>">
+    <input type="hidden" name="idsexo" id="nombre" value="<?php echo htmlspecialchars($sexo['idsexo']); ?>">
     
     <label for="nombre">Nombre:</label>
     <input type="text" name="nombre" id="nombre" value="<?php echo htmlspecialchars($sexo['nombre']); ?>" required>
