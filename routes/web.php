@@ -15,7 +15,7 @@ $route = strtok($route, '?'); // Quitar parámetros GET
 $controllers = [
     'persona' => 'PersonaController',
     'direccion' => 'DireccionController',
-    'estadocivil' => 'EstadoCivilController',
+    'estadocivil' => 'EstadocivilController',
     'telefono' => 'TelefonoController',
     'sexo' => 'SexoController',
 ];
