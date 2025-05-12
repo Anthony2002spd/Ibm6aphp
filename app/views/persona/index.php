@@ -9,7 +9,7 @@
 <body>
 
 <div class="container">
-    <h1>Listar Personas</h1>
+    <h1>Listas de Personas</h1>
     <a href="/apple5a/app/views/persona/create.php"><button>Agregar</button></a>
 
     <table>
