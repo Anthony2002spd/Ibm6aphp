@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar los Estados Civiles</title>
+    <title>Listas de los Estados Civiles</title>
     <link rel="stylesheet" href="/Ibm6aphp/public/css/style.css">
 </head>
 <body>
 
 <div class="container">
-    <h1>Listar Estados Civiles</h1>
+    <h1>Listas de los Estados Civiles</h1>
     <a href="/Ibm6aphp/app/views/estadocivil/create.php"><button>Agregar</button></a>
 
     <table>
