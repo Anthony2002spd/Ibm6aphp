@@ -1,89 +1,111 @@
 <?php
 session_start();
 
-// Definir la ruta base de tu aplicación
-$basePath = '/Ibm6aphp/public/';
+// Incluir los controladores necesarios
+require_once '../app/controllers/PersonaController.php';
+require_once '../app/controllers/SexoController.php';
+require_once '../app/controllers/DireccionController.php';
+require_once '../app/controllers/TelefonoController.php';
+require_once '../app/controllers/EstadocivilController.php';
 
-// Obtener la URI de la solicitud
 $requestUri = $_SERVER["REQUEST_URI"];
-
+$basePath = '/Ibm6aphp/public/';
 // Remover el prefijo basePath
 $route = str_replace($basePath, '', $requestUri);
 $route = strtok($route, '?'); // Quitar parámetros GET
-
-// Array que mapea las rutas con los nombres de los controladores
-$controllers = [
-    'persona' => 'PersonaController',
-    'direccion' => 'DireccionController',
-    'estadocivil' => 'EstadocivilController',
-    'telefono' => 'TelefonoController',
-    'sexo' => 'SexoController',
-];
-
-// Si no se especifica una ruta, mostrar el menú
-if (empty($route)) {
-    echo "<h1>Selecciona la tabla que deseas administrar:</h1>";
+ 
+// Mostrar el menú si no se ha solicitado ninguna acción específica
+if (empty($route) || $route === '/') {
+    echo "<h1>Menú de Tablas</h1>";
     echo "<ul>";
-    foreach (array_keys($controllers) as $tableName) {
-        echo "<li><a href='" . $basePath . $tableName . "'>" . ucfirst($tableName) . "</a></li>";
-    }
+    echo "<li><a href='" . $basePath . "persona/index'>Personas</a></li>";
+    echo "<li><a href='" . $basePath . "sexo/index'>Sexos</a></li>";
+    echo "<li><a href='" . $basePath . "direccion/index'>Direcciones</a></li>";
+    echo "<li><a href='" . $basePath . "telefono/index'>Teléfonos</a></li>";
+    echo "<li><a href='" . $basePath . "estadocivil/index'>Estados Civiles</a></li>";
     echo "</ul>";
 } else {
-    // Separar el segmento principal de la ruta (el nombre de la tabla)
-    $segments = explode('/', $route);
-    $tableName = $segments[0];
+    // Enrutar a los controladores según la ruta
+    switch ($route) {
+        case 'persona':
+        case 'persona/index':
+            $controller = new PersonaController();
+            $controller->index();
+            break;
+        case 'persona/create':
+            $controller = new PersonaController();
+            $controller->createForm();
+            break;
 
-    // Verificar si existe un controlador para la tabla solicitada
-    if (isset($controllers[$tableName])) {
-        $controllerName = $controllers[$tableName];
-        $controllerFile = '../app/controllers/' . $controllerName . '.php';
 
-        // Incluir el archivo del controlador si existe
-        if (file_exists($controllerFile)) {
-            require_once $controllerFile;
-            $controller = new $controllerName();
 
-            // Determinar la acción a ejecutar en el controlador
-            $action = isset($segments[1]) ? $segments[1] : 'index';
 
-            switch ($action) {
-                case 'index':
-                    $controller->index();
-                    break;
-                case 'edit':
-                    if (isset($_GET['id' . $tableName])) {
-                        $controller->edit($_GET['id' . $tableName]);
-                    } else {
-                        echo "Error: Falta el ID para editar.";
-                    }
-                    break;
-                case 'eliminar':
-                    if (isset($_GET['id' . $tableName])) {
-                        $controller->eliminar($_GET['id' . $tableName]);
-                    } else {
-                        echo "Error: Falta el ID para eliminar.";
-                    }
-                    break;
-                case 'delete':
+        case 'sexo':
+        case 'sexo/index':
+            $controller = new SexoController();
+            $controller->index();
+            break;
+        case 'sexo/edit':
+            if (isset($_GET['idsexo'])) {
+                $controller = new SexoController();
+                $controller->edit($_GET['idsexo']);
+            } else {
+                echo "Error: Falta el ID para editar.";
+            }
+            break;
+        case 'sexo/eliminar':
+            if (isset($_GET['idsexo'])) {
+                $controller = new SexoController();
+                $controller->eliminar($_GET['idsexo']);
+            } else {
+                echo "Error: Falta el ID para editar.";
+            }
+            break;
+        case 'sexo/delete':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller = new SexoController();
+                $controller->delete();
+            }
+            break;
+        case 'sexo/update':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller = new SexoController();
+                $controller->update();
+            }
+            break;
+        case 'direccion':
+        case 'direccion/index':
+            $controller = new DireccionController();
+            $controller->index();
+            break;
+        case 'telefono':
+        case 'telefono/index':
+            $controller = new TelefonoController();
+            $controller->index();
+            break;
+        case 'estadocivil':
+        case 'estadocivil/index':
+            $controller = new EstadoCivilController();
+            $controller->index();
+            break;
+        case 'estadocivil/edit':
+                if (isset($_GET['idestadocivil'])) {
+                    
+                    $controller = new EstadocivilController();
+                    $controller->edit($_GET['idestadocivil']);
+                } else {
+                    echo "Error: Falta el ID para editar.";
+                }
+                break;
+                case 'estadocivil/update':
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $controller->delete();
-                    }
-                    break;
-                case 'update':
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $controller = new EstadocivilController();
                         $controller->update();
                     }
                     break;
-                // Puedes agregar más casos para otras acciones (crear, ver, etc.)
-                default:
-                    echo "Error 404: Acción no encontrada en el controlador.";
-                    break;
-            }
-        } else {
-            echo "Error: No se encontró el archivo del controlador para " . $tableName . ".";
-        }
-    } else {
-        echo "Error 404: Tabla no válida.";
+        default:
+            echo "Error 404: Página no encontrada.";
+            break;
     }
 }
 ?>
