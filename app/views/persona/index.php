@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Personas</title>
+    <title>Lista de persona Personas</title>
     <link rel="stylesheet" href="/apple5a/public/css/style.css">
 </head>
 <body>
