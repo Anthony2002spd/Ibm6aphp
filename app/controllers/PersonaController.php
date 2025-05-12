@@ -3,10 +3,10 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6b/config/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6b/app/models/Persona.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6b/app/models/Sexo.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6b/app/models/Estadocivil.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/config/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Persona.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Sexo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Estadocivil.php';
 
 class PersonaController {
     private $persona;
