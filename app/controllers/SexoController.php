@@ -1,17 +1,12 @@
 
-
 <!DOCTYPE html>
 <?php
-
+// MEJORAS EN VISUAL CODE
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 // En SexoController.php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/config/database.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Sexo.php';
-
-
-
-
 
 
 
@@ -118,8 +113,8 @@ public function update() {
     // Eliminar un sexo
     public function delete() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['idsexo'])) {
-            $this->sexo->idsexo = $_POST['idsexo'];
+        if (isset($_POST['id'])) {
+            $this->sexo->id = $_POST['id'];
         if ($this->sexo->delete()) {
                 echo "Sexo borrado exitosamente";
 		die();
@@ -138,13 +133,35 @@ public function update() {
     die();  // Detener la ejecución para ver los mensajes
 
 }
+
+
+public function api() {
+
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        $sexos = $this->sexo->getAll();
+        header('Content-Type: application/json');
+        echo json_encode($sexos);
+        exit;
+
+
+
+    }
+
+
+
+
+
+
+
 }
 
 /// Manejo de la acción en la URL
 if (isset($_GET['action'])) {
     $controller = new SexoController();
 
-	   echo "hola";
     switch ($_GET['action']) {
         case 'create':
             $controller->create();
@@ -158,6 +175,11 @@ if (isset($_GET['action'])) {
             $controller->delete();
             break;
 
+         case 'api':
+
+            $controller->api();
+            break;
+
 
 
 
@@ -167,7 +189,7 @@ if (isset($_GET['action'])) {
             break;
     }
 } else {
-    echo "No se especificó ninguna acción.";
+//    echo "No se especificó ninguna acción.";
 }
 
 
