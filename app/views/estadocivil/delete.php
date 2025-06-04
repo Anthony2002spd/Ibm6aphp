@@ -8,7 +8,7 @@
 <body>
 
 <h1>Editar el estadocivil</h1>
-<form action="/ibm6a/public/estadocivil/delete" method="POST">
+<form action="/Ibm6aphp/public/estadocivil/delete" method="POST">
     <input type="hidden" name="idestadocivil" value="<?php echo htmlspecialchars($estadocivil['idestadocivil']); ?>">
     
     <label for="nombre">Nombre:</label>

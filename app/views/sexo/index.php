@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Sexos</title>
-    <link rel="stylesheet" href="/ibm6a/public/css/style.css">
+    <link rel="stylesheet" href="/Ibm6aphp/public/css/style.css">
 </head>
 <body>
 
 <div class="container">
     <h1>Listar  Sexos</h1>
-    <a href="/ibm6a/app/views/sexo/create.php"><button>Agregar</button></a>
+    <a href="/Ibm6aphp/app/views/sexo/create.php"><button>Agregar</button></a>
 
     <table>
         <thead>
@@ -27,10 +27,10 @@
                         <td><?php echo htmlspecialchars($sexo['idsexo']); ?></td>
                         <td><?php echo htmlspecialchars($sexo['nombre']); ?></td>
                         <td>
-    <a href="/ibm6a/public/sexo/edit?idsexo=<?php echo htmlspecialchars($sexo['idsexo']); ?>">
+    <a href="/Ibm6aphp/public/sexo/edit?idsexo=<?php echo htmlspecialchars($sexo['idsexo']); ?>">
         <button>Editar</button>
     </a>
-    <a href="/ibm6a/public/sexo/eliminar?idsexo=<?php echo htmlspecialchars($sexo['idsexo']); ?>" 
+    <a href="/Ibm6aphp/public/sexo/eliminar?idsexo=<?php echo htmlspecialchars($sexo['idsexo']); ?>" 
        onclick="return confirm('¿Estás seguro de eliminar este registro?');">
         <button>Eliminar</button>
     </a>
@@ -46,7 +46,7 @@
     </table>
 </div>
 
-<script src="/ibm6a/public/js/script.js"></script>
+<script src="/Ibm6aphp/public/js/script.js"></script>
 </body>
 </html>
 
