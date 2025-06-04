@@ -3,12 +3,12 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/config/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Persona.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Sexo.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Estadocivil.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Direccion.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Telefono.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ibm6a/config/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ibm6a/app/models/Persona.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ibm6a/app/models/Sexo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ibm6a/app/models/Estadocivil.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ibm6a/app/models/Direccion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ibm6a/app/models/Telefono.php';
 class PersonaController {
     private $persona;
     private $db;

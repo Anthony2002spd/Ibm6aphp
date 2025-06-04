@@ -4,10 +4,10 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // En DireccionController.php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/config/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Direccion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ibm6a/config/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ibm6a/app/models/Direccion.php';
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Persona.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ibm6a/app/models/Persona.php';
 class DireccionController {
     private $direccion;
     private $db;
