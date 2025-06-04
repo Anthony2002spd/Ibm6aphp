@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Sexo</title>
+    <title>Editar estadocivil</title>
 </head>
 <body>
 
 <h1>Editar </h1>
-<form action="/Ibm6aphp/public/sexo/update" method="POST">
-    <input type="hidden" name="idsexo" id="idsexo" value="<?php echo htmlspecialchars($sexo['idsexo']); ?>">
+<form action="/apple6a/public/estadocivil/update" method="POST">
+    <input type="hidden" name="idestadocivil" value="<?php echo htmlspecialchars($estadocivil['idestadocivil']); ?>">
     
     <label for="nombre">Nombre:</label>
-    <input type="text" name="nombre" id="nombre" value="<?php echo htmlspecialchars($sexo['nombre']); ?>" required>
+    <input type="text" name="nombre" id="nombre" value="<?php echo htmlspecialchars($estadocivil['nombre']); ?>" required>
     
     <input type="submit" value="Actualizar">
 </form>

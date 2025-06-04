@@ -1,23 +1,23 @@
 <?php
-
+// MEJORAS EN VISUAL CODE
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+// En estadocivilController.php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/config/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Estadocivil.php';
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/config/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Estadocivil.php';
-
-class EstadoCivilController {
-    private $estadoCivil;
+class estadocivilController {
+    private $estadocivil;
     private $db;
 
     public function __construct() {
         $this->db = (new Database())->getConnection();
-        $this->estadoCivil = new EstadoCivil($this->db);
+        $this->estadocivil = new estadocivil($this->db);
     }
 
     // Mostrar todos los estados civiles
     public function index() {
-        $estadosCiviles = $this->estadoCivil->read();
+        $estadosciviles = $this->estadocivil->read();
         require_once '../app/views/estadocivil/index.php';
     }
 
@@ -25,10 +25,12 @@ class EstadoCivilController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Formulario recibido";  // Verificar si llega el formulario
             if (isset($_POST['nombre'])) {
-                $this->estadoCivil->nombre = $_POST['nombre'];
-                if ($this->estadoCivil->create()) {
+                $this->estadocivil->nombre = $_POST['nombre'];
+                if ($this->estadocivil->create()) {
                     echo "Estado civil creado exitosamente";
                     // Redirigir o mostrar un mensaje de éxito
+                    header('Location: index.php?msg=created');
+                    exit;
                 } else {
                     echo "Error al crear el estado civil";
                 }
@@ -36,16 +38,19 @@ class EstadoCivilController {
                 echo "Faltan datos";
             }
         } else {
-            echo "Método incorrecto";  // Verificar que el formulario no se envíe con GET
+            require_once '../app/views/estadocivil/create.php'; // Mostrar el formulario de creación
         }
         die();  // Detener la ejecución para ver los mensajes
     }
 
-    public function edit($idestadocivil) {
-        $this->estadoCivil->idestadocivil = $idestadocivil;
-        $estadoCivil = $this->estadoCivil->readOne();
+    
 
-        if (!$estadoCivil) {
+    public function edit($idestadocivil) {
+        // Pasar el ID al modelo antes de llamar a readOne()
+        $this->estadocivil->idestadocivil = $idestadocivil;
+        $estadocivil = $this->estadocivil->readOne();
+         
+        if (!$estadocivil) {
             die("Error: No se encontró el registro.");
         }
 
@@ -53,10 +58,11 @@ class EstadoCivilController {
     }
 
     public function eliminar($idestadocivil) {
-        $this->estadoCivil->idestadocivil = $idestadocivil;
-        $estadoCivil = $this->estadoCivil->readOne();
+        // Pasar el ID al modelo antes de llamar a readOne()
+        $this->estadocivil->idestadocivil = $idestadocivil;
+        $estadocivil = $this->estadocivil->readOne();
 
-        if (!$estadoCivil) {
+        if (!$estadocivil) {
             die("Error: No se encontró el registro.");
         }
 
@@ -67,11 +73,12 @@ class EstadoCivilController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Formulario recibido";  // Verificar si llega el formulario
             if (isset($_POST['nombre'])) {
-                $this->estadoCivil->nombre = $_POST['nombre'];
-                $this->estadoCivil->idestadocivil = $_POST['idestadocivil'];
-                if ($this->estadoCivil->update()) {
-                    echo "Estado civil actualizado exitosamente";
-                    // Redirigir o mostrar un mensaje de éxito
+                $this->estadocivil->nombre = $_POST['nombre'];
+                $this->estadocivil->idestadocivil = $_POST['idestadocivil'];
+                if ($this->estadocivil->update()) {
+                    echo "Estado Civil actualizado exitosamente";
+                    header('Location: index?msg=updated');
+                    exit;
                 } else {
                     echo "Error al actualizar el estado civil";
                 }
@@ -88,14 +95,13 @@ class EstadoCivilController {
     public function delete() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['idestadocivil'])) {
-                $this->estadoCivil->idestadocivil = $_POST['idestadocivil'];
-                if ($this->estadoCivil->delete()) {
-                    echo "Estado civil borrado exitosamente";
-                    die();
-                    header('Location: index.php?msg=deleted');
+                $this->estadocivil->idestadocivil = $_POST['idestadocivil'];
+                if ($this->estadocivil->delete()) {
+                    echo "Estado Civil borrado exitosamente";
+                    header('Location: index?msg=deleted');
                     exit;
                 } else {
-                    header('Location: index.php?msg=error');
+                    header('Location: index?msg=error');
                     exit;
                 }
             } else {
@@ -106,15 +112,41 @@ class EstadoCivilController {
         }
         die();  // Detener la ejecución para ver los mensajes
     }
+
+    public function api() {
+
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        $estadosciviles = $this->estadocivil->getAll();
+        header('Content-Type: application/json');
+        echo json_encode($estadosciviles);
+        exit;
+    }
 }
 
-// Manejo de la acción en la URL
+
+
+
+/// Manejo de la acción en la URL
 if (isset($_GET['action'])) {
-    $controller = new EstadoCivilController();
+    $controller = new estadocivilController();
 
     switch ($_GET['action']) {
+        case 'index':
+            $controller->index();
+            break;
         case 'create':
             $controller->create();
+            break;
+      
+        case 'eliminar':
+            if (isset($_GET['idestadocivil'])) {
+                $controller->eliminar($_GET['idestadocivil']);
+            } else {
+                echo "Error: Falta el ID para eliminar.";
+            }
             break;
         case 'update':
             $controller->update();
@@ -122,12 +154,17 @@ if (isset($_GET['action'])) {
         case 'delete':
             $controller->delete();
             break;
+        case 'api':
+            $controller->api();
+            break;
         default:
             echo "Acción no válida.";
             break;
     }
 } else {
-    echo "No se especificó ninguna acción.";
+   // $controller = new estadocivilController();
+   // $controller->index(); // Mostrar la lista por defecto
 }
-
 ?>
+
+

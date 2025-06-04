@@ -3,11 +3,12 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/config/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Persona.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Sexo.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Estadocivil.php';
-
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/config/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Persona.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Sexo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Estadocivil.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Direccion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Telefono.php';
 class PersonaController {
     private $persona;
     private $db;
@@ -17,6 +18,9 @@ class PersonaController {
         $this->persona = new Persona($this->db);
         $this->sexo = new Sexo($this->db);
         $this->estadocivil = new Estadocivil($this->db);
+
+        $this->telefono = new Telefono($this->db);
+        $this->direccion = new Direccion($this->db);
     }
 
     // Mostrar todas las personas
@@ -24,6 +28,7 @@ class PersonaController {
         $personas = $this->persona->read();
         $sexos = $this->sexo->read();
         $estadosciviles = $this->estadocivil->read();
+
         require_once '../app/views/persona/index.php';
     }
 
@@ -32,7 +37,6 @@ class PersonaController {
 
 
         $sexos = $this->sexo->read();
-            
         $estadosciviles = $this->estadocivil->read();
         require_once '../app/views/persona/create.php';
     }
@@ -81,8 +85,10 @@ class PersonaController {
     }
 
     // Mostrar el formulario de edición de persona
-    public function editForm($idpersona) {
+    public function edit($idpersona) {
         $this->persona->idpersona = $idpersona;
+        $sexos = $this->sexo->read();
+        $estadosciviles = $this->estadocivil->read();
         $persona = $this->persona->readOne();
 
         if (!$persona) {
@@ -91,6 +97,25 @@ class PersonaController {
 
         require_once '../app/views/persona/edit.php';
     }
+
+    public function registro($idpersona) {
+        $this->persona->idpersona = $idpersona;
+        $sexos = $this->sexo->read();
+        $estadosciviles = $this->estadocivil->read();
+
+        $telefonos = $this->telefono->readByPersona($idpersona);
+        $direcciones = $this->direccion->readByPersona($idpersona);
+        $persona = $this->persona->readOne();
+
+        if (!$persona) {
+            die("Error: No se encontró la persona.");
+        }
+
+        require_once '../app/views/persona/registro.php';
+    }
+
+ 
+
 
     // Procesar la actualización de una persona
     public function update() {
@@ -162,6 +187,21 @@ class PersonaController {
             exit;
         }
     }
+
+    public function api() {
+
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        $personas = $this->persona->getAll();
+        header('Content-Type: application/json');
+        echo json_encode($personas);
+        exit;
+
+
+
+    }
 }
 
 // Manejo de la acción en la URL
@@ -207,6 +247,10 @@ if (isset($_GET['action'])) {
         case 'delete':
             $controller->delete();
             break;
+        case 'api':
+
+        $controller->api();
+        break;
         default:
             echo "Acción no válida.";
             break;
@@ -214,5 +258,8 @@ if (isset($_GET['action'])) {
 } else {
    // $controller = new PersonaController();
   //  $controller->index(); // Acción por defecto si no se especifica ninguna
+
 }
 ?>
+
+

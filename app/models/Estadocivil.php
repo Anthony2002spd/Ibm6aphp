@@ -1,5 +1,6 @@
+PHP
 <?php
-//modelo estadocivil
+// Modelo EstadoCivil
 class EstadoCivil {
     private $conn;
     private $table_name = "estadocivil";
@@ -9,6 +10,13 @@ class EstadoCivil {
 
     public function __construct($db) {
         $this->conn = $db;
+    }
+
+
+    public function getAll() {
+        // Conexión a la base de datos
+        $query = $this->conn->query("SELECT * FROM estadocivil");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Crear un nuevo estado civil
@@ -25,10 +33,9 @@ class EstadoCivil {
         }
     }
 
-
     public function read() {
         try {
-            $query = "SELECT idestadocivil, nombre FROM " . $this->table_name;
+            $query = "SELECT * FROM " . $this->table_name;
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
 
@@ -40,12 +47,10 @@ class EstadoCivil {
         }
     }
 
-
-
-     // Leer un solo estado civil por ID
+    // Leer un solo estado civil por ID
     public function readOne() {
         try {
-            $query = "SELECT idestadocivil, nombre FROM " . $this->table_name . " WHERE idestadocivil = :idestadocivil LIMIT 1";
+            $query = "SELECT * FROM " . $this->table_name . " WHERE idestadocivil = :idestadocivil LIMIT 1";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":idestadocivil", $this->idestadocivil, PDO::PARAM_INT);
             $stmt->execute();
@@ -93,10 +98,10 @@ class EstadoCivil {
                 error_log("Error en delete(): La consulta de estado civil no se ejecutó correctamente.");
                 return false;
             }
-
         } catch (PDOException $e) {
             error_log("Error en delete(): " . $e->getMessage());
             return false;
         }
     }
 }
+?>

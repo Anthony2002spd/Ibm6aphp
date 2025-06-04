@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listas de los Estados Civiles</title>
-    <link rel="stylesheet" href="/Ibm6aphp/public/css/style.css">
+    <title>Listar Estados Civiles</title>
+    <link rel="stylesheet" href="/apple6a/public/css/style.css">
 </head>
 <body>
 
 <div class="container">
-    <h1>Listas de los Estados Civiles</h1>
-    <a href="/Ibm6aphp/app/views/estadocivil/create.php"><button>Agregar</button></a>
+    <h1>Listar Estados Civiles</h1>
+    <a href="/apple6a/app/views/estadocivil/create.php"><button>Agregar</button></a>
 
     <table>
         <thead>
@@ -21,16 +21,16 @@
             </tr>
         </thead>
         <tbody>
-            <?php if (!empty($estadosCiviles) && is_array($estadosCiviles)): ?>
-                <?php foreach ($estadosCiviles as $estadoCivil): ?>
+            <?php if (!empty($estadosciviles) && is_array($estadosciviles)): ?>
+                <?php foreach ($estadosciviles as $estadocivil): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($estadoCivil['idestadocivil']); ?></td>
-                        <td><?php echo htmlspecialchars($estadoCivil['nombre']); ?></td>
+                        <td><?php echo htmlspecialchars($estadocivil['idestadocivil']); ?></td>
+                        <td><?php echo htmlspecialchars($estadocivil['nombre']); ?></td>
                         <td>
-                            <a href="/Ibm6aphp/public/estadocivil/edit?idestadocivil=<?php echo htmlspecialchars($estadoCivil['idestadocivil']); ?>">
+                            <a href="/apple6a/public/estadocivil/edit?idestadocivil=<?php echo htmlspecialchars($estadocivil['idestadocivil']); ?>">
                                 <button>Editar</button>
                             </a>
-                            <a href="/Ibm6aphp/public/estadocivil/eliminar?idestadocivil=<?php echo htmlspecialchars($estadoCivil['idestadocivil']); ?>"
+                            <a href="/apple6a/app/views/estadocivil/eliminar?idestadocivil=<?php echo htmlspecialchars($estadocivil['idestadocivil']); ?>"
                                onclick="return confirm('¿Estás seguro de eliminar este registro?');">
                                 <button>Eliminar</button>
                             </a>
@@ -46,6 +46,6 @@
     </table>
 </div>
 
-<script src="/Ibm6aphp/public/js/script.js"></script>
+<script src="/apple6a/public/js/script.js"></script>
 </body>
 </html>

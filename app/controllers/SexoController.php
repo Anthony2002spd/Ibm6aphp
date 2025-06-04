@@ -5,8 +5,8 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 // En SexoController.php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/config/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ibm6aphp/app/models/Sexo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/config/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/apple6a/app/models/Sexo.php';
 
 
 
@@ -113,11 +113,10 @@ public function update() {
     // Eliminar un sexo
     public function delete() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['id'])) {
-            $this->sexo->id = $_POST['id'];
+        if (isset($_POST['idsexo'])) {
+            $this->sexo->idsexo = $_POST['idsexo'];
         if ($this->sexo->delete()) {
                 echo "Sexo borrado exitosamente";
-		die();
             header('Location: index.php?msg=deleted');
             exit;
         } else {
@@ -145,9 +144,6 @@ public function api() {
         header('Content-Type: application/json');
         echo json_encode($sexos);
         exit;
-
-
-
     }
 
 
